@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rosaline-bela.netlify.app/sitemap.xml

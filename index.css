@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;500&family=Tajawal:wght@200;300;400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Tajawal", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Playfair Display", "Tajawal", serif;
+  --font-fancy: "Great Vibes", cursive;
+  --font-mono: "Space Grotesk", monospace;
+
+  --animate-shimmer: shimmer 2.5s infinite ease-in-out;
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+@layer base {
+  body {
+    @apply font-sans antialiased bg-black;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(224, 224, 224, 0.15);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(224, 224, 224, 0.4);
+  }
+
+  /* Burgundy theme version scrollbar with sleek chrome silver accents */
+  .theme-burgundy ::-webkit-scrollbar-thumb {
+    background: rgba(224, 224, 224, 0.2);
+  }
+  .theme-burgundy ::-webkit-scrollbar-thumb:hover {
+    background: rgba(224, 224, 224, 0.55);
+  }
+
+  /* Blush theme version scrollbar with sleek glowing Light Sky Blue accents */
+  .theme-blush ::-webkit-scrollbar-thumb {
+    background: rgba(144, 224, 239, 0.35);
+  }
+  .theme-blush ::-webkit-scrollbar-thumb:hover {
+    background: rgba(144, 224, 239, 0.75);
+  }
+
+  /* Hide scrollbar helper */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none !important;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none !important;  /* IE and Edge */
+    scrollbar-width: none !important;  /* Firefox */
+  }
+
+  /* Creative Workshop Button Overrides to force appearance & high visibility with Silver and Metallic Platinum */
+  .creative-workshop-btn {
+    display: inline-flex !important;
+    visibility: visible !important;
+    align-items: center;
+    justify-content: center;
+    gap: 6px !important;
+    background-color: #E5E4E2 !important; /* Premium Metallic Platinum */
+    color: #0f0205 !important; /* Contrasting deep dark burgundy text */
+    font-weight: 700 !important;
+    font-size: 11px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    padding: 8px 16px !important;
+    border-radius: 9999px !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 0 0 15px rgba(224, 224, 224, 0.75) !important;
+    z-index: 9999 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease-in-out !important;
+    white-space: nowrap !important;
+  }
+
+  .creative-workshop-btn:hover {
+    background-color: #ffffff !important;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.95), inset 0 0 10px rgba(224, 224, 224, 0.4) !important;
+    transform: translateY(-1px) scale(1.03) !important;
+  }
+
+  .creative-workshop-btn:active {
+    transform: translateY(1px) !important;
+  }
+
+  /* Creative Dropdown Trigger component styles with luxury high-contrast Silver border */
+  .creative-dropdown-trigger {
+    display: inline-flex !important;
+    visibility: visible !important;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(15, 2, 5, 0.85) !important; /* Deep burgundy background */
+    color: #ffffff !important;
+    border: 1.5px solid #C0C0C0 !important; /* Glowing premium Silver border */
+    box-shadow: 0 0 12px rgba(224, 224, 224, 0.45) !important;
+    border-radius: 9999px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.05em !important;
+    transition: all 0.3s ease-in-out !important;
+    cursor: pointer !important;
+  }
+
+  .creative-dropdown-trigger:hover {
+    background-color: rgba(224, 224, 224, 0.15) !important;
+    box-shadow: 0 0 22px rgba(224, 224, 224, 0.75), inset 0 0 8px rgba(255, 255, 255, 0.3) !important;
+    border-color: #ffffff !important;
+    transform: translateY(-1px) scale(1.02) !important;
+  }
+
+  /* Dropdown panel overlay styled as a luxury Silver & Burgundy space portal */
+  .creative-dropdown-panel {
+    background: rgba(15, 2, 5, 0.98) !important; /* Deep dark burgundy/maroon */
+    border: 1.5px solid rgba(224, 224, 224, 0.6) !important; /* High contrast Silver border */
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(224, 224, 224, 0.1) !important;
+    border-radius: 1rem !important;
+    backdrop-filter: blur(16px) !important;
+  }
+
+  /* Force parent container nav element containing this button to always show up on smaller device screens */
+  @media (max-width: 1023px) {
+    nav:has(.creative-workshop-btn) {
+      display: flex !important;
+    }
+  }
+
+  /* Custom Cursor Hide standard mouse pointers for premium fine-pointer desktop immersive experience */
+  @media (pointer: fine) {
+    body, 
+    button, 
+    a, 
+    input, 
+    textarea, 
+    select, 
+    canvas,
+    [role="button"], 
+    .cursor-pointer,
+    .creative-workshop-btn,
+    .creative-dropdown-trigger {
+      cursor: none !important;
+    }
+  }
+}
