@@ -1,0 +1,81 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    
+    // Global Helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    
+    function incoming() {
+      return request.resource.data;
+    }
+    
+    function existing() {
+      return resource.data;
+    }
+
+    // Entity Validations
+    function isValidUser(data) {
+      return data.keys().hasAll(['userId', 'displayName', 'email', 'createdAt'])
+        && data.keys().size() == 4
+        && data.userId is string && data.userId.size() <= 128
+        && data.displayName is string && data.displayName.size() > 0 && data.displayName.size() <= 100
+        && data.email is string && data.email.size() > 0 && data.email.size() <= 100
+        && data.createdAt is timestamp;
+    }
+
+    function isValidNovel(data) {
+      return data.keys().hasAll(['id', 'title', 'author', 'authorId', 'desc', 'genreIndex', 'rating', 'reviewsCount', 'cover', 'chapterTitle', 'chapterNumber', 'content', 'authorNote', 'createdAt'])
+        && data.keys().size() == 14
+        && data.id is string && data.id.size() <= 128
+        && data.title is string && data.title.size() > 0 && data.title.size() <= 200
+        && data.author is string && data.author.size() > 0 && data.author.size() <= 100
+        && data.authorId is string && data.authorId.size() <= 128
+        && data.desc is string && data.desc.size() <= 2000
+        && data.genreIndex is int && data.genreIndex >= 0 && data.genreIndex <= 10
+        && (data.rating is float || data.rating is int)
+        && data.reviewsCount is int
+        && data.cover is string && data.cover.size() <= 1000
+        && data.chapterTitle is string && data.chapterTitle.size() <= 200
+        && data.chapterNumber is int
+        && data.content is string && data.content.size() > 0 && data.content.size() <= 100000
+        && data.authorNote is string && data.authorNote.size() <= 2000
+        && data.createdAt is timestamp;
+    }
+
+    // Match collections
+    match /users/{userId} {
+      allow get: if isSignedIn() && isValidId(userId);
+      allow list, write: if isSignedIn() && isValidId(userId) && userId == request.auth.uid && isValidUser(incoming());
+    }
+
+    match /novels/{novelId} {
+      allow read: if true;
+      allow create: if isSignedIn() 
+        && isValidId(novelId) 
+        && incoming().authorId == request.auth.uid 
+        && incoming().createdAt == request.time
+        && isValidNovel(incoming());
+        
+      allow update: if isSignedIn() 
+        && isValidId(novelId) 
+        && existing().authorId == request.auth.uid 
+        && incoming().authorId == request.auth.uid
+        && incoming().createdAt == existing().createdAt
+        && isValidNovel(incoming());
+        
+      allow delete: if isSignedIn() 
+        && isValidId(novelId) 
+        && existing().authorId == request.auth.uid;
+    }
+  }
+}

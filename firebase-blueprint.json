@@ -1,0 +1,48 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with basic display info.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The firebase auth uid of the user." },
+        "displayName": { "type": "string", "description": "Display name of the author or reader" },
+        "email": { "type": "string", "description": "User email address" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Time of creation" }
+      },
+      "required": ["userId", "displayName", "email", "createdAt"]
+    },
+    "Novel": {
+      "title": "Novel",
+      "description": "A novel written by users, published to the community library.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Document ID" },
+        "title": { "type": "string", "description": "Title of the novel" },
+        "author": { "type": "string", "description": "Name of the author" },
+        "authorId": { "type": "string", "description": "Firebase UID of the author" },
+        "desc": { "type": "string", "description": "Brief description of the novel" },
+        "genreIndex": { "type": "integer", "description": "Index of the category/genre" },
+        "rating": { "type": "number", "description": "Book rating" },
+        "reviewsCount": { "type": "integer", "description": "Number of reviews" },
+        "cover": { "type": "string", "description": "Cover art image URL" },
+        "chapterTitle": { "type": "string", "description": "Title of first chapter" },
+        "chapterNumber": { "type": "integer", "description": "Chapter number" },
+        "content": { "type": "string", "description": "Content text" },
+        "authorNote": { "type": "string", "description": "Author comments" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp of creation" }
+      },
+      "required": ["id", "title", "author", "authorId", "desc", "genreIndex", "rating", "reviewsCount", "cover", "chapterTitle", "chapterNumber", "content", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User accounts with display settings and authorship information."
+    },
+    "/novels/{novelId}": {
+      "schema": "Novel",
+      "description": "Public catalog of user novels and books."
+    }
+  }
+}

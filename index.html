@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rosaline Bela | محراب روزلين لتعلم كتابة وقراءة روايات الفانتازيا</title>
+
+    <!-- Global SEO Metadata -->
+    <meta name="description" content="اكتشف محراب روزلين للمبدعين، منصة عربية ساحرة لتعلم كتابة الروايات وتحدي الشخصيات الرمادية مع نظام تقييم ذكي وموسيقى محيطة ملهمة للكتّاب.">
+    <meta name="keywords" content="كتابة روايات, روايات فانتازيا, شخصية رمادية, تعلم الكتابة, روزلين بيلا, كتابة القصص, ورشة كتابة">
+    <meta name="author" content="Rosaline Bela" />
+    <meta name="robots" content="index, follow">
+    <meta name="google-site-verification" content="pNzGcuaNH1Suk2EEoHB5VukswgqQMwflGWLaqKeBCyU" />
+
+    <!-- OpenGraph (Facebook / LinkedIn) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Rosaline Bela – Fantasy Writing & Reading Platform" />
+    <meta property="og:description" content="Rosaline Bela is a dreamy fantasy writing and reading platform focused on stories, novels, imagination, and creative worlds. Explore infinity in our celestial sanctuary." />
+    <meta property="og:url" content="https://rosaline-bela.netlify.app" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop" />
+    <meta property="og:site_name" content="Rosaline Bela" />
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Rosaline Bela – Fantasy Writing & Reading Platform" />
+    <meta name="twitter:description" content="Rosaline Bela is a dreamy fantasy writing and reading platform focused on stories, novels, imagination, and creative worlds. Explore infinity in our celestial sanctuary." />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop" />
+
+    <!-- Favicon Support & Progressive Web App Manifest -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#d8b4fe" />
+    <script>
+      // Mitigation for "Cannot set property fetch of #<Window> which has only a getter"
+      // This happens when a library tries to polyfill fetch in a restricted environment.
+      (function() {
+        try {
+          const originalFetch = window.fetch;
+          if (originalFetch) {
+            Object.defineProperty(window, 'fetch', {
+              get() { return originalFetch; },
+              set() { /* Ignore attempts to overwrite fetch */ },
+              configurable: true
+            });
+          }
+        } catch (e) {
+          // If we can't redefine it, it might already be restricted, which is fine as long as it's there.
+        }
+      })();
+
+      // PWA Service Worker Registration
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => {
+              console.log('[PWA] Service Worker registered successfully under scope:', reg.scope);
+            })
+            .catch(err => {
+              console.warn('[PWA] Service Worker registration failed:', err);
+            });
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
